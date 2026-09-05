@@ -3,7 +3,7 @@
 import { ChevronsUpDown, LogOut, Settings, UserRound } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
-import { Icon } from '@/components/ui/icon';
+import { Icon } from '@/components/ui/primitives/icon';
 
 /**
  * Profile area placeholder.

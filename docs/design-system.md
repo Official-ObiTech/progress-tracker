@@ -382,3 +382,53 @@ boundary; a component is a function and does not.
 `SidebarNav` is the same problem in a different shape. It is a client component
 and a `NavItem` carries an icon, so it looks up its own items from
 `@/config/navigation` by group name rather than receiving the array as a prop.
+
+## Component library
+
+Organised in three tiers under `src/components/ui`:
+
+| Tier         | Meaning                                           |
+| ------------ | ------------------------------------------------- |
+| `primitives` | Low-level elements. Depend on nothing but tokens. |
+| `composite`  | Built from primitives. Often stateful.            |
+| `data`       | Display components for application information.   |
+
+A component belongs one tier up from its deepest dependency. If a primitive
+starts importing a composite, it was never a primitive.
+
+`/components` renders the whole library for review. `/design-system` covers
+tokens. Both are development routes and safe to delete.
+
+### Why these are not in the library
+
+`TaskItem`, `ActivityItem` and `PhaseIndicator` were requested but deliberately
+not built. Their shape depends on a domain model that does not exist yet, so
+building them now means guessing field names and rebuilding later. `List`,
+`ListItem` and `StatusBadge` give their feature segments everything needed to
+compose them in a few lines.
+
+### Overlay behaviour comes from the platform where possible
+
+Dialogs use the native `<dialog>` element, so focus trapping, Escape,
+background inerting and top-layer stacking are the browser's job. Menus and
+tabs get hand-written keyboard handling, because no browser provides the
+WAI-ARIA pattern for those:
+
+- **Menu**: arrows move and skip disabled items, Home and End jump, Escape
+  closes and returns focus to the trigger, Tab closes and moves on.
+- **Tabs**: arrows move with wrapping, only the selected tab is in the tab
+  order, so one Tab press reaches the panel rather than one per tab.
+
+Both are covered by tests, which is how these behaviours stay correct.
+
+## Tests
+
+`npm run test` runs Vitest against jsdom.
+
+The suite deliberately targets behaviour rather than markup: keyboard paths,
+ARIA wiring, disabled and loading states. Asserting on class names would break
+on every restyle while catching nothing that matters.
+
+jsdom does not do layout, so breakpoints and visual regressions still need a
+real browser. Tests cover what can be verified without one; they are not a
+substitute for looking at the page.

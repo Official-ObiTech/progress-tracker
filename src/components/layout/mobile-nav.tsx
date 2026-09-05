@@ -6,7 +6,7 @@ import { Menu, X } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
 import { mediaQuery } from '@/lib/design-tokens';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/ui/primitives/button';
 import { Brand } from './brand';
 import { SidebarNav } from './sidebar-nav';
 import { UserMenu } from './user-menu';

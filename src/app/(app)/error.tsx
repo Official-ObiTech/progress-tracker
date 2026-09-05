@@ -3,8 +3,8 @@
 import { RotateCcw } from 'lucide-react';
 
 import { PageContainer } from '@/components/layout/page-container';
-import { Button } from '@/components/ui/button';
-import { ErrorState } from '@/components/ui/states';
+import { Button } from '@/components/ui/primitives/button';
+import { ErrorState } from '@/components/ui/composite/error-state';
 
 /**
  * Route-level error boundary.

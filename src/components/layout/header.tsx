@@ -5,9 +5,9 @@ import { usePathname } from 'next/navigation';
 import { Bell, ChevronRight } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
-import { Button } from '@/components/ui/button';
-import { Icon } from '@/components/ui/icon';
-import { SearchInput } from '@/components/ui/input';
+import { Button } from '@/components/ui/primitives/button';
+import { Icon } from '@/components/ui/primitives/icon';
+import { SearchInput } from '@/components/ui/composite/search-input';
 import { ThemeToggle } from '@/components/theme/theme-toggle';
 import { findNavItem } from '@/config/navigation';
 import { MobileNav } from './mobile-nav';

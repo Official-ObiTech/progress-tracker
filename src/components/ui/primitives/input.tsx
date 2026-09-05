@@ -1,12 +1,12 @@
 'use client';
 
 import * as React from 'react';
-import { ChevronDown, Search } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
 import type { ControlSize } from '@/lib/design-tokens';
 import { Icon } from './icon';
-import { useField } from './field';
+import { useField } from '../composite/form-field';
 
 /**
  * Shared control chrome.
@@ -15,7 +15,8 @@ import { useField } from './field';
  * boundary of an interactive control, so WCAG requires it to clear 3:1 against
  * the background. The very light borders common in modern UI kits fail this.
  */
-const controlBase = cn(
+/** Exported so composites such as SearchInput can match input chrome exactly. */
+export const controlBase = cn(
   'w-full rounded-md border bg-surface text-default',
   'border-border-strong',
   'placeholder:text-disabled',
@@ -27,7 +28,7 @@ const controlBase = cn(
   'aria-invalid:border-danger',
 );
 
-const controlSizes: Record<ControlSize, string> = {
+export const controlSizes: Record<ControlSize, string> = {
   sm: 'h-[var(--control-h-sm)] px-2.5 text-caption',
   md: 'h-[var(--control-h-md)] px-3 text-small',
   lg: 'h-[var(--control-h-lg)] px-3.5 text-body',
@@ -69,31 +70,6 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
         {...wiring}
         {...props}
       />
-    );
-  },
-);
-
-export interface SearchInputProps extends InputProps {
-  onClear?: () => void;
-}
-
-export const SearchInput = React.forwardRef<HTMLInputElement, SearchInputProps>(
-  function SearchInput({ size = 'md', className, ...props }, ref) {
-    return (
-      <div className="relative">
-        <Icon
-          icon={Search}
-          size="md"
-          className="text-subtle pointer-events-none absolute top-1/2 left-3 -translate-y-1/2"
-        />
-        <Input
-          ref={ref}
-          type="search"
-          size={size}
-          className={cn('pl-9', className)}
-          {...props}
-        />
-      </div>
     );
   },
 );

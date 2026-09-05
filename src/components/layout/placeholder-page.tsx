@@ -1,6 +1,6 @@
 import { PageContainer, PageHeader } from '@/components/layout';
-import { EmptyState } from '@/components/ui/states';
-import { Icon } from '@/components/ui/icon';
+import { EmptyState } from '@/components/ui/composite/empty-state';
+import { Icon } from '@/components/ui/primitives/icon';
 import type { NavItem } from '@/config/navigation';
 
 /**

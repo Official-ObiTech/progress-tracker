@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 import { cn } from '@/lib/utils';
-import { Icon } from '@/components/ui/icon';
+import { Icon } from '@/components/ui/primitives/icon';
 import { isNavItemActive, primaryNav, secondaryNav } from '@/config/navigation';
 
 export interface SidebarNavProps {
