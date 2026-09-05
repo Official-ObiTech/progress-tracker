@@ -355,3 +355,30 @@ Not a review step. Built into the components so it is difficult to get wrong.
 `/design-system` renders every token and component on one page. It is excluded
 from search engines, nothing imports from it, and it is safe to delete. Use it
 to check a change did not regress something elsewhere.
+
+## Server and client boundaries
+
+The shell mixes server and client components, and one rule prevents the most
+common failure.
+
+**A component reference is a function, and functions cannot cross from a server
+component to a client component.** Passing `icon={SomeLucideIcon}` into a client
+component fails at build time with "Functions cannot be passed directly to
+Client Components".
+
+Two consequences to keep in mind:
+
+**Client components import from the specific module, not the barrel.** A client
+component importing `@/components/ui` pulls the whole barrel into the client
+graph, which then makes every component in it a client component for everyone
+else. Import `@/components/ui/button` directly instead. Server components and
+pages can use the barrel freely.
+
+**Components that may be rendered from either side take a rendered element, not
+a component.** `EmptyState` and `ErrorState` accept `icon?: React.ReactNode`, so
+callers pass `icon={<Icon icon={Inbox} />}`. An element is data and crosses the
+boundary; a component is a function and does not.
+
+`SidebarNav` is the same problem in a different shape. It is a client component
+and a `NavItem` carries an icon, so it looks up its own items from
+`@/config/navigation` by group name rather than receiving the array as a prop.
