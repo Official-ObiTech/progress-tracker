@@ -1,0 +1,41 @@
+@import 'tailwindcss';
+
+/*
+ * Baseline tokens only.
+ *
+ * This is intentionally minimal. The real design system (palette, type scale,
+ * spacing, component tokens) is defined in Segment 2. Nothing here should be
+ * treated as a final visual decision.
+ */
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  /*
+   * System font stack. Deliberately not a webfont: typography is a Segment 2
+   * decision, and this keeps the production build free of a network fetch.
+   */
+  --font-sans:
+    ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica,
+    Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+body {
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans);
+}
